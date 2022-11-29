@@ -1,6 +1,6 @@
 
 rootProject.name = "IJServer"
-include("ij-plugin")
+include("core")
 
 enableFeaturePreview("VERSION_CATALOGS")
 

@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.dokka)
     alias(libs.plugins.gradle.ktlint)
     alias(libs.plugins.jetbrains.intellij)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 val platformVersion: String by project
@@ -22,6 +23,7 @@ allprojects {
         plugin(rootProject.libs.plugins.dokka.get().pluginId)
         plugin(rootProject.libs.plugins.gradle.ktlint.get().pluginId)
         plugin(rootProject.libs.plugins.jetbrains.intellij.get().pluginId)
+        plugin(rootProject.libs.plugins.kotlin.serialization.get().pluginId)
     }
 
     repositories {
@@ -30,6 +32,10 @@ allprojects {
 
     val utilitiesProjectName = "org.jetbrains.research.pluginUtilities"
     dependencies {
+
+        implementation(rootProject.libs.kotlinx.coroutines.core)
+        implementation(rootProject.libs.kotlinx.coroutines.jdk8)
+        implementation(rootProject.libs.kotlinx.serialization.json)
 
         // Plugin utilities modules
         implementation("$utilitiesProjectName:plugin-utilities-core") {
@@ -58,6 +64,7 @@ allprojects {
     }
 
     ktlint {
+        disabledRules.set(setOf("no-wildcard-imports"))
         enableExperimentalRules.set(true)
         filter {
             exclude("**/resources/**")
