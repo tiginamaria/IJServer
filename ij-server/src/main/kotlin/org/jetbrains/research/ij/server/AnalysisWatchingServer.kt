@@ -1,7 +1,6 @@
 package org.jetbrains.research.ij.server
 
 import com.intellij.ide.impl.ProjectUtil
-import com.intellij.lang.Language
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.psi.PsiFileFactory
 import com.jetbrains.python.PythonLanguage
@@ -30,9 +29,10 @@ class AnalysisWatchingServer(private val watchPath: Path) {
         val analysisTask = Json.decodeFromStream<AnalysisTask>(Files.newInputStream(eventPath))
 
         ApplicationManager.getApplication().invokeAndWait {
-            println("I'm in application")
-            val project = ProjectUtil.openOrImport(analysisTask.inputPath)
-            val file = PsiFileFactory.getInstance(project).createFileFromText("dummy", PythonLanguage.INSTANCE, "if (a < b and b < c):\n\tprint(a, b, c)")
+            val project = ProjectUtil.openOrImport(analysisTask.outputPath)
+
+            val file = PsiFileFactory.getInstance(project)
+                .createFileFromText("dummy", PythonLanguage.INSTANCE, "if (a < b and b < c):\n\tprint(a, b, c)")
             val service = InspectionService()
             val inspection = service.inspect(file)
             println(inspection)
@@ -40,15 +40,16 @@ class AnalysisWatchingServer(private val watchPath: Path) {
         println(analysisTask)
     }
 
+    @OptIn(ObsoleteCoroutinesApi::class, DelicateCoroutinesApi::class)
     fun run() {
-//        val scope = ApplicationManager.getApplication().getService(MyService::class.java)
-
-        runBlocking {
-            launch {
-                while (true) {
-                    watchKey.pollEvents().forEach {
-                        acceptEvent(it)
-                        delay(1000L)
+        ApplicationManager.getApplication().executeOnPooledThread {
+            runBlocking {
+                launch {
+                    while (true) {
+                        watchKey.pollEvents().forEach {
+                            acceptEvent(it)
+                            delay(1000L)
+                        }
                     }
                 }
             }

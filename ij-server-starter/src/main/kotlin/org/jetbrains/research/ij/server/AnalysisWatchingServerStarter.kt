@@ -25,8 +25,14 @@ class AnalysisWatchingServerStarter : ApplicationStarter {
 
             require(watchPath.toFile().isDirectory) { "Argument --watchDir has to be directory" }
 
-            val watchingServer = AnalysisWatchingServer(watchPath)
-            watchingServer.run()
+            val singleFileServer = AnalysisSingleFileServer(
+                watchPath.resolve("input"),
+                watchPath.resolve("tmp")
+            )
+            singleFileServer.run()
+
+//            val watchingServer = AnalysisWatchingServer(watchPath)
+//            watchingServer.run()
 
         } catch (ex: Exception) {
             logger.error(ex)
