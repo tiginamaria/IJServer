@@ -1,6 +1,10 @@
 package org.jetbrains.research.ij.server
 
+import com.intellij.ide.impl.ProjectUtil
+import com.intellij.lang.Language
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.psi.PsiFileFactory
+import com.jetbrains.python.PythonLanguage
 import kotlinx.coroutines.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -27,15 +31,27 @@ class AnalysisWatchingServer(private val watchPath: Path) {
 
         ApplicationManager.getApplication().invokeAndWait {
             println("I'm in application")
+            val project = ProjectUtil.openOrImport(analysisTask.inputPath)
+            val file = PsiFileFactory.getInstance(project).createFileFromText("dummy", PythonLanguage.INSTANCE, "if (a < b and b < c):\n\tprint(a, b, c)")
+            val service = InspectionService()
+            val inspection = service.inspect(file)
+            println(inspection)
         }
         println(analysisTask)
     }
 
     fun run() {
-        val scope = ApplicationManager.getApplication().getService(MyService::class.java)
+//        val scope = ApplicationManager.getApplication().getService(MyService::class.java)
 
         runBlocking {
-            scope.scheduleSomethingUseful().join()
+            launch {
+                while (true) {
+                    watchKey.pollEvents().forEach {
+                        acceptEvent(it)
+                        delay(1000L)
+                    }
+                }
+            }
         }
     }
 }
