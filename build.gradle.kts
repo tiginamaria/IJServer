@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 group = "org.jetbrains.research.ij.server"
 version = "1.0-SNAPSHOT"
 
@@ -16,6 +14,9 @@ val platformVersion: String by project
 val platformType: String by project
 val platformDownloadSources: String by project
 val platformPlugins: String by project
+val pluginName: String by project
+
+val gradleVersion: String by project
 
 allprojects {
     apply {
@@ -23,36 +24,10 @@ allprojects {
         plugin(rootProject.libs.plugins.dokka.get().pluginId)
         plugin(rootProject.libs.plugins.gradle.ktlint.get().pluginId)
         plugin(rootProject.libs.plugins.jetbrains.intellij.get().pluginId)
-        plugin(rootProject.libs.plugins.kotlin.serialization.get().pluginId)
     }
 
     repositories {
         mavenCentral()
-    }
-
-    val utilitiesProjectName = "org.jetbrains.research.pluginUtilities"
-    dependencies {
-
-        implementation(rootProject.libs.kotlinx.coroutines.core)
-        implementation(rootProject.libs.kotlinx.coroutines.jdk8)
-        implementation(rootProject.libs.kotlinx.serialization.json)
-
-        // Plugin utilities modules
-        implementation("$utilitiesProjectName:plugin-utilities-core") {
-            version {
-                branch = "main"
-            }
-        }
-        implementation("$utilitiesProjectName:plugin-utilities-python") {
-            version {
-                branch = "main"
-            }
-        }
-        implementation("$utilitiesProjectName:plugin-utilities-test") {
-            version {
-                branch = "main"
-            }
-        }
     }
 
     intellij {
@@ -72,13 +47,28 @@ allprojects {
     }
 
     tasks {
-        withType<JavaCompile> {
-            sourceCompatibility = "11"
-            targetCompatibility = "11"
+        runIde {
+
+            val watchDir: String? by project
+
+            args = listOfNotNull(
+                "watching-server",
+                watchDir?.let { "--watchDir=$it" }
+            )
+
+            jvmArgs = listOf(
+                "-Djava.awt.headless=true",
+                "--add-exports",
+                "java.base/jdk.internal.vm=ALL-UNNAMED",
+                "-Djdk.module.illegalAccess.silent=true"
+            )
+
+            maxHeapSize = "32g"
+
+            standardInput = System.`in`
+            standardOutput = System.`out`
         }
-        withType<KotlinCompile> {
-            kotlinOptions.jvmTarget = "11"
-        }
+
         withType<org.jetbrains.intellij.tasks.BuildSearchableOptionsTask>()
             .forEach { it.enabled = false }
     }
