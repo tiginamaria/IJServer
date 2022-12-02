@@ -32,7 +32,7 @@ where:
 - `outputPath` -- directory with analysis result
 - `jarPath` -- path to jar with analyzer class implementation
 - `analyzerClassName` -- analyzer class name to invoke on code
-4. When new task comes server process in following steps:\
+4. When new task comes server process in following steps:
     * If task is **batch of files** analysis:
       1. Load analyzer class from given jar file
       2. Create dummy project 
