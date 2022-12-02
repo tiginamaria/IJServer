@@ -6,12 +6,12 @@ import com.xenomachina.argparser.ArgParser
 import java.nio.file.Paths
 import kotlin.system.exitProcess
 
-class AnalysisWatchingServerStarter : ApplicationStarter {
+class AnalysisServerStarter : ApplicationStarter {
 
     private val logger = Logger.getInstance(javaClass)
 
     override fun getCommandName(): String {
-        return "watching-server"
+        return "analysis-server"
     }
 
     override fun main(args: List<String>) {
@@ -20,20 +20,13 @@ class AnalysisWatchingServerStarter : ApplicationStarter {
             val watchPath by parser.storing(
                 "-w",
                 "--watchDir",
-                help = "Server watching directory"
+                help = "Server watching directory to receive tasks"
             ) { Paths.get(this) }
 
-            require(watchPath.toFile().isDirectory) { "Argument --watchDir has to be directory" }
+            require(watchPath.toFile().isDirectory) { "Argument --watchDir has to be a directory" }
 
-            val singleFileServer = AnalysisSingleFileServer(
-                watchPath.resolve("input"),
-                watchPath.resolve("tmp")
-            )
-            singleFileServer.run()
-
-//            val watchingServer = AnalysisWatchingServer(watchPath)
-//            watchingServer.run()
-
+            val watchingServer = AnalysisWatchServer(watchPath)
+            watchingServer.run()
         } catch (ex: Exception) {
             logger.error(ex)
         } finally {

@@ -1,0 +1,73 @@
+alias(libs.plugins.kotlin.jvm)
+alias(libs.plugins.dokka)
+alias(libs.plugins.gradle.ktlint)
+alias(libs.plugins.jetbrains.intellij)
+alias(libs.plugins.kotlin.serialization)
+apply {
+        plugin(rootProject.libs.plugins.kotlin.jvm.get().pluginId)
+        plugin(rootProject.libs.plugins.dokka.get().pluginId)
+        plugin(rootProject.libs.plugins.gradle.ktlint.get().pluginId)
+        plugin(rootProject.libs.plugins.jetbrains.intellij.get().pluginId)
+    }
+plugin(rootProject.libs.plugins.kotlin.jvm.get().pluginId)
+get()
+plugin(rootProject.libs.plugins.dokka.get().pluginId)
+get()
+plugin(rootProject.libs.plugins.gradle.ktlint.get().pluginId)
+get()
+plugin(rootProject.libs.plugins.jetbrains.intellij.get().pluginId)
+get()
+repositories {
+        mavenCentral()
+    }
+mavenCentral()
+intellij {
+        version.set(platformVersion)
+        type.set(platformType)
+        downloadSources.set(platformDownloadSources.toBoolean())
+        updateSinceUntilBuild.set(true)
+        plugins.set(platformPlugins.split(',').map(String::trim).filter(String::isNotEmpty))
+    }
+set(platformVersion)
+set(platformType)
+set(platformDownloadSources.toBoolean())
+toBoolean()
+set(true)
+set(platformPlugins.split(',').map(String::trim).filter(String::isNotEmpty))
+split(',')
+map(String::trim)
+filter(String::isNotEmpty)
+ktlint {
+        disabledRules.set(setOf("no-wildcard-imports"))
+        enableExperimentalRules.set(true)
+        filter {
+            exclude("**/resources/**")
+        }
+    }
+set(setOf("no-wildcard-imports"))
+setOf("no-wildcard-imports")
+set(true)
+filter {
+            exclude("**/resources/**")
+        }
+exclude("**/resources/**")
+tasks {
+        withType<JavaCompile> {
+            sourceCompatibility = "11"
+            targetCompatibility = "11"
+        }
+        withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+            kotlinOptions.jvmTarget = "11"
+        }
+        withType<org.jetbrains.intellij.tasks.BuildSearchableOptionsTask>()
+            .forEach { it.enabled = false }
+    }
+withType<JavaCompile> {
+            sourceCompatibility = "11"
+            targetCompatibility = "11"
+        }
+withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+            kotlinOptions.jvmTarget = "11"
+        }
+withType<org.jetbrains.intellij.tasks.BuildSearchableOptionsTask>()
+forEach { it.enabled = false }

@@ -16,9 +16,18 @@ object PathAsStringSerializer : KSerializer<Path> {
 }
 
 @Serializable
+enum class InputType {
+    FILE, PROJECT
+}
+
+@Serializable
 data class AnalysisTask(
+    val inputType: InputType,
     @Serializable(with = PathAsStringSerializer::class)
     val inputPath: Path,
     @Serializable(with = PathAsStringSerializer::class)
     val outputPath: Path,
+    @Serializable(with = PathAsStringSerializer::class)
+    val jarPath: Path,
+    val analyzerClassName: String,
 )

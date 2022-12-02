@@ -1,5 +1,7 @@
 rootProject.name = "IJServer"
+
+include("ij-starter")
 include("ij-server")
-include("ij-server-starter")
+include("ij-core")
 
 enableFeaturePreview("VERSION_CATALOGS")

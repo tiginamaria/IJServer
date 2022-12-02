@@ -1,0 +1,7 @@
+{
+  "inputType": "FILE",
+  "inputPath": "{PATH_TO_PROJECT_DIR}/IJServer/ij-server/src/main/resources/data/input",
+  "outputPath": "{PATH_TO_PROJECT_DIR}/IJServer/ij-server/src/main/resources/data/output/output.txt",
+  "jarPath": "{PATH_TO_PROJECT_DIR}/IJServer/ij-server/src/main/resources/data/jar",
+  "analyzerClassName": "org.jetbrains.research.ij.server.analysis.CallExpressionsAnalyzer"
+}
