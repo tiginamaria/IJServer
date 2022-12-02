@@ -1,0 +1,6 @@
+{
+  "inputPath": "/Users/maria.tigina/IdeaProjects/IJServer/ij-server/src/main/resources/data/input",
+  "outputPath": "/Users/maria.tigina/IdeaProjects/IJServer/ij-server/src/main/resources/data/output/output.txt",
+  "jarPath": "/Users/maria.tigina/IdeaProjects/IJServer/ij-server/src/main/resources/data/jar",
+  "analyzerClassName": "org.jetbrains.research.ij.server.analysis.CallExpressionsAnalyzer"
+}

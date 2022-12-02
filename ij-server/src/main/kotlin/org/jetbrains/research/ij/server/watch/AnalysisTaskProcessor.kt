@@ -4,8 +4,8 @@ import com.intellij.ide.impl.ProjectUtil
 import com.intellij.util.io.readText
 import com.intellij.util.io.write
 import org.jetbrains.kotlin.psi.KtPsiFactory
-import org.jetbrains.research.ij.server.analysis.analyzer.Analyzer
-import org.jetbrains.research.ij.server.analysis.analyzer.RecursivePsiAnalyzer
+import org.jetbrains.research.ij.server.analysis.Analyzer
+import org.jetbrains.research.ij.server.analysis.RecursivePsiAnalyzer
 import java.net.URLClassLoader
 import java.nio.file.Files
 import java.nio.file.Path

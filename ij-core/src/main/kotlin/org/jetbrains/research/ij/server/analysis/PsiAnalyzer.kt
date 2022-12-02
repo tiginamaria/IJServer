@@ -1,4 +1,4 @@
-package org.jetbrains.research.ij.server.analysis.analyzer
+package org.jetbrains.research.ij.server.analysis
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor

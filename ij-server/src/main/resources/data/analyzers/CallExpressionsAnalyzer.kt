@@ -1,9 +1,8 @@
-package org.jetbrains.research.ij.server.analysis.analyzer.analyzers
+package org.jetbrains.research.ij.server.analysis.example
 
 import com.intellij.psi.PsiElement
 import org.jetbrains.kotlin.psi.KtCallExpression
-import org.jetbrains.research.ij.server.analysis.analyzer.RecursivePsiAnalyzer
-
+import org.jetbrains.research.ij.server.analysis.RecursivePsiAnalyzer
 
 class CallExpressionsAnalyzer : RecursivePsiAnalyzer() {
 

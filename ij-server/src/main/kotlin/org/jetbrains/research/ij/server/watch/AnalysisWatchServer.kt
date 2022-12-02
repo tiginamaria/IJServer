@@ -24,10 +24,9 @@ class AnalysisWatchServer(private val watchPath: Path) {
         val eventPath = watchPath.resolve(event.context() as Path)
 
         println("Accept event type=$eventType path=$eventPath")
-
         val analysisTask = Json.decodeFromStream<AnalysisTask>(Files.newInputStream(eventPath))
-        println("Accept event task=$analysisTask")
 
+        println("Accept event task=$analysisTask")
         analysisTaskProcessor.accept(analysisTask)
     }
 
