@@ -47,28 +47,13 @@ allprojects {
     }
 
     tasks {
-        runIde {
-
-            val watchDir: String? by project
-
-            args = listOfNotNull(
-                "watching-server",
-                watchDir?.let { "--watchDir=$it" }
-            )
-
-            jvmArgs = listOf(
-                "-Djava.awt.headless=true",
-                "--add-exports",
-                "java.base/jdk.internal.vm=ALL-UNNAMED",
-                "-Djdk.module.illegalAccess.silent=true"
-            )
-
-            maxHeapSize = "32g"
-
-            standardInput = System.`in`
-            standardOutput = System.`out`
+        withType<JavaCompile> {
+            sourceCompatibility = "11"
+            targetCompatibility = "11"
         }
-
+        withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+            kotlinOptions.jvmTarget = "11"
+        }
         withType<org.jetbrains.intellij.tasks.BuildSearchableOptionsTask>()
             .forEach { it.enabled = false }
     }

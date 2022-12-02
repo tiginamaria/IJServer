@@ -10,7 +10,7 @@ import org.jetbrains.kotlin.psi.KtPsiFactory
 import java.nio.file.Files
 import java.nio.file.Path
 
-class AnalysisSingleFileServer(private val filesPath: Path, private val tmpProjectPath: Path) {
+class GradleDependenciesAnalysisTask(private val filesPath: Path, private val tmpProjectPath: Path) {
 
     fun run() {
         ApplicationManager.getApplication().invokeAndWait {

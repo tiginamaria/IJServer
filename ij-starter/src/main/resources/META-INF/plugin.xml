@@ -12,7 +12,7 @@
     <depends>com.intellij.modules.python</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <appStarter implementation="org.jetbrains.research.ij.server.AnalysisWatchingServerStarter"/>
+        <appStarter implementation="org.jetbrains.research.ij.server.AnalysisServerStarter"/>
     </extensions>
 
 </idea-plugin>

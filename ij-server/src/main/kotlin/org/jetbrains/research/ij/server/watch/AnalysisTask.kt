@@ -1,4 +1,4 @@
-package org.jetbrains.research.ij.server
+package org.jetbrains.research.ij.server.watch
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
