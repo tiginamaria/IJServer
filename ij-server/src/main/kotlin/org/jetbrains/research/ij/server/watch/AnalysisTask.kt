@@ -21,4 +21,7 @@ data class AnalysisTask(
     val inputPath: Path,
     @Serializable(with = PathAsStringSerializer::class)
     val outputPath: Path,
+    @Serializable(with = PathAsStringSerializer::class)
+    val jarPath: Path,
+    val analyzerClassName: String,
 )

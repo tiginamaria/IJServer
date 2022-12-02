@@ -3,7 +3,7 @@ package org.jetbrains.research.ij.server
 import com.intellij.openapi.application.ApplicationStarter
 import com.intellij.openapi.diagnostic.Logger
 import com.xenomachina.argparser.ArgParser
-import org.jetbrains.research.ij.server.watch.AnalysisServer
+import org.jetbrains.research.ij.server.watch.AnalysisWatchServer
 import java.nio.file.Paths
 import kotlin.system.exitProcess
 
@@ -26,7 +26,7 @@ class AnalysisServerStarter : ApplicationStarter {
 
             require(watchPath.toFile().isDirectory) { "Argument --watchDir has to be directory" }
 
-            val watchingServer = AnalysisServer(watchPath)
+            val watchingServer = AnalysisWatchServer(watchPath)
             watchingServer.run()
         } catch (ex: Exception) {
             logger.error(ex)
