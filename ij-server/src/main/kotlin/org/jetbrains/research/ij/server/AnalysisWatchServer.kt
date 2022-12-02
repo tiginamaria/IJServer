@@ -1,4 +1,4 @@
-package org.jetbrains.research.ij.server.watch
+package org.jetbrains.research.ij.server
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

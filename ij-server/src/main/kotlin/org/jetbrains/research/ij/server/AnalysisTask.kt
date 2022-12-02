@@ -1,4 +1,4 @@
-package org.jetbrains.research.ij.server.watch
+package org.jetbrains.research.ij.server
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
@@ -16,7 +16,13 @@ object PathAsStringSerializer : KSerializer<Path> {
 }
 
 @Serializable
+enum class InputType {
+    FILE, PROJECT
+}
+
+@Serializable
 data class AnalysisTask(
+    val inputType: InputType,
     @Serializable(with = PathAsStringSerializer::class)
     val inputPath: Path,
     @Serializable(with = PathAsStringSerializer::class)

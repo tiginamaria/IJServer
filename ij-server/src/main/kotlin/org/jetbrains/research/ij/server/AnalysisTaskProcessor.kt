@@ -1,4 +1,4 @@
-package org.jetbrains.research.ij.server.watch
+package org.jetbrains.research.ij.server
 
 import com.intellij.ide.impl.ProjectUtil
 import com.intellij.util.io.readText
@@ -34,6 +34,9 @@ class AnalysisTaskProcessor {
     }
 
     fun accept(task: AnalysisTask) {
-        analyzeFiles(task.inputPath, task.outputPath, task.jarPath, task.analyzerClassName)
+        when (task.inputType) {
+            InputType.FILE -> analyzeFiles(task.inputPath, task.outputPath, task.jarPath, task.analyzerClassName)
+            InputType.PROJECT -> error("Not implemented yet")
+        }
     }
 }

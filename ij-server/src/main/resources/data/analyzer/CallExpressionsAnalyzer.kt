@@ -1,4 +1,4 @@
-package org.jetbrains.research.ij.server.analysis.example
+package org.jetbrains.research.ij.server.analysis
 
 import com.intellij.psi.PsiElement
 import org.jetbrains.kotlin.psi.KtCallExpression

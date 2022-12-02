@@ -3,7 +3,6 @@ package org.jetbrains.research.ij.server
 import com.intellij.openapi.application.ApplicationStarter
 import com.intellij.openapi.diagnostic.Logger
 import com.xenomachina.argparser.ArgParser
-import org.jetbrains.research.ij.server.watch.AnalysisWatchServer
 import java.nio.file.Paths
 import kotlin.system.exitProcess
 
@@ -24,7 +23,7 @@ class AnalysisServerStarter : ApplicationStarter {
                 help = "Server watching directory to receive tasks"
             ) { Paths.get(this) }
 
-            require(watchPath.toFile().isDirectory) { "Argument --watchDir has to be directory" }
+            require(watchPath.toFile().isDirectory) { "Argument --watchDir has to be a directory" }
 
             val watchingServer = AnalysisWatchServer(watchPath)
             watchingServer.run()
